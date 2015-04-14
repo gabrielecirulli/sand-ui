@@ -10,15 +10,15 @@
 @ui-hue: hue(@ui-syntax-color);
 
 @ui-s-s: saturation(@ui-syntax-color);
-.ui-saturation() when (@ui-hue <=  80) { @ui-saturation: min(@ui-s-s,  6%); } // minimize saturation for brown
-.ui-saturation() when (@ui-hue >   80)
-                  and (@ui-hue <  160) { @ui-saturation: min(@ui-s-s, 12%); } // reduce saturation for green
-.ui-saturation() when (@ui-hue >= 160) { @ui-saturation: min(@ui-s-s, 24%); } // limit max saturaiotn for the rest
+.ui-saturation() when (@ui-hue <  180) { @ui-saturation: min(@ui-s-s,  6%); } // minimize saturation for brown
+.ui-saturation() when (@ui-hue >= 180) { @ui-saturation: @ui-s-s; } // reduce saturation for green
 .ui-saturation();
 
 @ui-s-l: lightness(@ui-syntax-color);
-.ui-lightness() when (@ui-s-l <  16%) { @ui-lightness: @ui-s-l + 6%; } // increase lightness when too dark
-.ui-lightness() when (@ui-s-l >= 16%) { @ui-lightness: min(@ui-s-l, 22%); } // limit max lightness
+.ui-lightness() when (@ui-s-l <  16%) and (@ui-s-s <  16%) { @ui-lightness: @ui-s-l + 6%; } // increase lightness when too dark
+.ui-lightness() when (@ui-s-l <  16%) and (@ui-s-s >= 16%) { @ui-lightness: min(@ui-s-l, 22%); } // limit max lightness
+.ui-lightness() when (@ui-s-l >= 16%) and (@ui-s-s >= 16%) { @ui-lightness: min(@ui-s-l, 22%); } // limit max lightness
+.ui-lightness() when (@ui-s-l >= 16%) and (@ui-s-s <  16%) { @ui-lightness: min(@ui-s-l, 22%); } // limit max lightness
 .ui-lightness();
 
 // Main colors -----------------
